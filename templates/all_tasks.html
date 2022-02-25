@@ -1,0 +1,145 @@
+{% extends "tasks_base.html" %} {%block task_title%} All {%endblock%}
+{#-------------#} {% block task_list %}
+
+<section
+	class="grid grid-cols-3 w-full gap-10 text-red-500 text-xl font-semibold my-2"
+>
+	<div>
+		<a href="/all_tasks">
+			<div class="bg-red-100 rounded-full py-2 px-7 text-center w-fit">All</div>
+		</a>
+	</div>
+	<div>
+		<a href="/tasks">
+			<div class="text-black py-2 px-7 hover:text-red-500 smooth-effect">
+				Pending
+			</div>
+		</a>
+	</div>
+	<div>
+		<a href="/completed_tasks">
+			<div class="text-black py-2 px-7 hover:text-red-500 smooth-effect">
+				Completed
+			</div>
+		</a>
+	</div>
+</section>
+
+{% if tasks %}
+<section style="min-height: 50vh">
+	{% for task in tasks %}
+
+	<div
+		class="flow-root bg-slate-100 drop-shadow-sm my-6 py-5 px-6 rounded-xl hover:scale-105 smooth-effect"
+	>
+		<a href="/detail-task/{{task.id}}/">
+			<div class="float-left w-3/5">
+				{% if task.completed %}
+				<div class="text-xl font-medium text-rose-600">
+					<del>{{task.title}}</del>
+					<span
+						class="bg-red-400 text-zinc-50 font-bold text-sm rounded-full ml-1.5"
+						style="padding: 0.3rem 0.6rem"
+					>
+						{{task.priority}}
+					</span>
+				</div>
+				<div class="text-slate-400">
+					{{task.created_date|date:"D j M"}}
+					<span
+						class="text-xs font-semibold {%if task.status == 'PENDING'%}text-blue-500{%elif task.status == 'COMPLETED'%}text-amber-500{%elif task.status == 'IN_PROGRESS'%}text-green-500{%else%}text-rose-500{%endif%} ml-0.5"
+						>{{ task.status }}</span
+					>
+				</div>
+
+				{% else %}
+				<div class="text-xl font-medium text-gray-900">
+					{{task.title}}
+					<span
+						class="bg-red-400 text-zinc-50 font-bold text-sm rounded-full ml-1"
+						style="padding: 0.3rem 0.6rem"
+					>
+						{{task.priority}}
+					</span>
+				</div>
+				<div class="text-slate-500">
+					{{task.created_date|date:"D j M"}}
+					<span
+						class="text-xs font-semibold {%if task.status == 'PENDING'%}text-blue-500{%elif task.status == 'COMPLETED'%}text-amber-500{%elif task.status == 'IN_PROGRESS'%}text-green-500{%else%}text-rose-500{%endif%} ml-0.5"
+						>{{ task.status }}</span
+					>
+				</div>
+				{% endif %}
+			</div>
+		</a>
+
+		<div
+			class="float-right grid grid-cols-2 gap-3 items-center justify-items-center mt-0.5"
+		>
+			<a href="/update-task/{{task.id}}/">
+				<div class="bg-teal-400 rounded-xl p-3 hover:bg-teal-500 smooth-effect">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="white"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="feather feather-edit-2"
+					>
+						<path
+							d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"
+						></path>
+					</svg>
+				</div>
+			</a>
+
+			<a href="/delete-task/{{task.id}}/">
+				<div class="bg-rose-500 rounded-xl p-3 hover:bg-rose-600 smooth-effect">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="white"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="feather feather-trash"
+					>
+						<polyline points="3 6 5 6 21 6"></polyline>
+						<path
+							d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+						></path>
+					</svg>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	{% endfor %}
+</section>
+
+{%else%}
+<section
+	style="
+		min-height: 50vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	"
+	class="bg-slate-100 rounded-xl my-5"
+>
+	<span class="text-lg font-medium text-slate-600 text-center">
+		No tasks to display!
+		<br />
+		<span class="text-gray-400 font-normal">
+			Add a few tasks, you'll see all of your tasks here!
+		</span>
+	</span>
+</section>
+{%endif%} {%endblock%}

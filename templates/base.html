@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+		<style type="text/tailwindcss">
+			@layer utilities {
+				.content-auto {
+					content-visibility: auto;
+				}
+			}
+
+			.smooth-effect {
+				@apply transition duration-300 ease-in-out;
+			}
+
+			.btn-red-lg {
+				@apply bg-red-500 rounded-xl drop-shadow-md px-10 py-4 text-lg text-white w-full hover:bg-red-600 focus:scale-95 active:drop-shadow-none smooth-effect;
+			}
+
+			::-moz-selection {
+				/* Code for Firefox */
+				color: white;
+				background: #f75d5d;
+			}
+
+			::selection {
+				color: white;
+				background: #f75d5d;
+			}
+		</style>
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+	<body>
+		<div class="grid justify-items-center items-center h-screen">
+			{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>

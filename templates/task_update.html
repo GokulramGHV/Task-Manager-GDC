@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %} Update Task {%endblock%}
+{#----#} {%block content%}
+
+<div class="p-4 lg:w-1/3">
+	<div class="text-5xl font-bold mb-8">Update Task</div>
+
+<form action="" method="POST">
+	{% csrf_token %}
+    {% for field in form %}
+        {% if field.widget_type == 'checkbox' %}
+            <label for="{{field.id_for_label}}">
+               <div class="mt-6 flex">{{field}} <span class="ml-5 text-lg">Completed</span></div>
+            </label>
+        {% else %}
+           <div class="text-lg mt-3">{{field.label}}</div> 
+            <div>{{field}}</div>
+        {% endif %}
+        <div class="text-red-600 mt-1">{{field.errors}}</div>
+    {% endfor %}
+	<button type="submit" class="btn-red-lg mt-5">Update Task</button>
+</form>
+</div>
+{%endblock%}

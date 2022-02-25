@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %}Sign-up{% endblock %}
+{#-------------#} {% block content%}
+<style>
+	ul {list-style-type: disc;}
+</style>
+
+<div class="p-4 w-fit">
+	<div class="text-5xl font-bold mr-20">Task Manager</div>
+	<div class="text-2xl pb-5 pt-8 font-semibold">Sign Up</div>
+
+	<form action="" method="POST">
+		{% csrf_token %} {% for field in form %}
+
+		<div class="text-lg mt-3">
+			{%if field.label != "Password confirmation"%} {{field.label}} {%else%}
+			Confirm Password {%endif%}
+		</div>
+
+		<div>{{field}}</div>
+		<div class="text-red-600 mt-1 text-sm ml-5">{{field.errors}}</div>
+
+		<div class="text-slate-500 mb-4 text-sm font-normal">
+			{%if field.label != "Password confirmation"%} 
+			{%if field.label == "Password" %}
+			<div class="ml-5">{{field.help_text}}</div>
+			{%else%}
+			{{field.help_text | cut:'Required.'}}
+			{%endif%} {%else%} {%endif%}
+		</div>
+
+		{% endfor %}
+		<button type="submit" class="btn-red-lg mt-5">Sign Up</button>
+	</form>
+</div>
+
+{%endblock%}

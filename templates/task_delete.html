@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block title %}Delete Task{% endblock %} {#-------------#}
+{% block content%}
+
+<div>
+    <div class="my-10 text-center text-5xl font-bold">Delete Task</div>
+	<div class="text-2xl">
+		Are you sure you want to delete the task "{{ object }}"?
+	</div>
+
+	<div class="flex justify-center m-10">
+		<form method="POST" class="m-0 p-0">
+			{% csrf_token %}
+			<button type="submit" class="bg-emerald-500 text-white py-3 px-10 text-lg rounded-xl hover:bg-emerald-600 smooth-effect shadow-md">Yes</button>
+		</form>
+		<button onclick="history.back()" class="ml-10 bg-rose-500 text-white py-3 px-10 text-lg rounded-xl hover:bg-rose-600 smooth-effect shadow-md">No</button>
+	</div>
+</div>
+
+{%endblock%}

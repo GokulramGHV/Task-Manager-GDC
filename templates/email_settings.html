@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %} Email Settings {% endblock %}
+{#----#}{% block content%}
+
+<form action="" method="POST">
+	{% csrf_token %}
+	<h1 class="text-4xl font-bold mb-10 mr-32">Email Settings</h1>
+	{% for field in form %} {% if field.widget_type == 'checkbox' %}
+	<label for="{{field.id_for_label}}">
+		<div class="mt-6 flex">
+			<span class="mr-3 text-lg">Mail Reports Daily</span> {{field}}
+		</div>
+	</label>
+	{% else %}
+	<div class="text-lg mt-3">{{field.label}}</div>
+	<div>{{field}}</div>
+	{% endif %}
+	<div class="text-red-600 mt-1">{{field.errors}}</div>
+	{% endfor %}
+	<button type="submit" class="btn-red-lg mt-6">Update Settings</button>
+</form>
+
+{% endblock %}
